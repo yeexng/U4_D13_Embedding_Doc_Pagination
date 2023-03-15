@@ -21,6 +21,8 @@ const blogPostsSchema = new Schema(
         username: { type: String, required: true },
         text: { type: String, required: true },
         rating: Number,
+        createdAt: Date,
+        updatedAt: Date,
       },
     ],
   },

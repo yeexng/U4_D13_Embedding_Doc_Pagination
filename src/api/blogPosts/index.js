@@ -110,7 +110,7 @@ blogPostsRouter.post("/:blogPostsID", async (req, res, next) => {
     };
     const updatedBlogPost = await BlogPostsModel.findByIdAndUpdate(
       req.params.blogPostsID, //who
-      { $push: { comments: commentsToInsert } },
+      { $push: { comments: commentsToInsert } }, //how
       { new: true, runValidators: true }
     );
     if (updatedBlogPost) {
@@ -127,9 +127,11 @@ blogPostsRouter.post("/:blogPostsID", async (req, res, next) => {
     next(error);
   }
 });
+
 blogPostsRouter.get("/:blogPostsID/comments", async (req, res, next) => {
   try {
     const blogPost = await BlogPostsModel.findById(req.params.blogPostsID);
+    //console.log(blogPost)
     if (blogPost) {
       res.send(blogPost.comments);
     } else {
@@ -144,6 +146,7 @@ blogPostsRouter.get("/:blogPostsID/comments", async (req, res, next) => {
     next(error);
   }
 });
+
 blogPostsRouter.get(
   "/:blogPostsID/comments/:commentId",
   async (req, res, next) => {
